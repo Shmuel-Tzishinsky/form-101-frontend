@@ -1,0 +1,10 @@
+[
+    {
+        "icon": "bx bx-user",
+        "content": "פרופיל"
+    },
+    {
+        "icon": "bx bx-log-out-circle bx-rotate-180",
+        "content": "התנתק"
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "display_name": "דף הבית",
+        "route": "/",
+        "icon": "bx bx-category-alt"
+    },
+    {
+        "display_name": "חברות",
+        "route": "/companys",
+        "icon": "bx bx-building"
+    },
+    {
+        "display_name": "טפסים",
+        "route": "/forms",
+        "icon": "bx bx-file"
+    },
+    {
+        "display_name": "מנהלים",
+        "route": "/admins",
+        "icon": "bx bx-shield-quarter"
+    }
+]
