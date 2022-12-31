@@ -12,7 +12,6 @@ import "./assets/css/theme.css";
 import "./assets/css/index.css";
 
 import Layout from "./components/layout/Layout";
-import { BrowserRouter } from "react-router-dom";
 
 const store = createStore(rootReducer);
 
@@ -22,11 +21,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
   if (!root) {
     root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <Layout />
-        </Provider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <Layout />
+      </Provider>
     );
   }
 });
