@@ -45,7 +45,8 @@ const Layout = () => {
 
   return (
     <Routes>
-      <Route exact path="/" element={<PagesAdmin Element={Dashboard} themeReducer={themeReducer} />} />
+      <Route exact path="/" element={<h1>Test</h1>} />
+      <Route exact path="/test" element={<h1>Test 2</h1>} />
       <Route exact path="/companys" element={<PagesAdmin Element={Companys} themeReducer={themeReducer} />} />
       <Route exact path="/companys/edit/:id" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
       <Route exact path="/companys/newCompany" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
