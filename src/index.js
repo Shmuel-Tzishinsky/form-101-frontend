@@ -15,12 +15,15 @@ import Layout from "./components/layout/Layout";
 
 const store = createStore(rootReducer);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+let root = null;
 
-root.render(
-  <Provider store={store}>
-    <Layout />
-  </Provider>,
-
-  document.getElementById("root")
-);
+document.addEventListener("DOMContentLoaded", function (event) {
+  if (!root) {
+    root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(
+      <Provider store={store}>
+        <Layout />
+      </Provider>
+    );
+  }
+});
