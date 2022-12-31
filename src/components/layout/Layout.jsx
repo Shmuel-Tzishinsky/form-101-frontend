@@ -90,22 +90,25 @@ const PagesAdmin = ({ Element, themeReducer }) => {
 
   return (
     <>
-      {/* {checkAdminAuth() ? ( */}
-      <UserProvider>
-        <CompanysProvider>
-          <div className={`layout ${themeReducer.mode} ${themeReducer.color}`}>
-            <div className="layout__content">
-              <TopNav colorLogo={colorLogo} />
-              <div className="layout__content-main">
-                <Element />
+      {checkAdminAuth() ? (
+        <UserProvider>
+          <CompanysProvider>
+            <div className={`layout ${themeReducer.mode} ${themeReducer.color}`}>
+              <div className="layout__content">
+                <TopNav colorLogo={colorLogo} />
+                <div className="layout__content-main">
+                  <Element />
+                </div>
               </div>
             </div>
-          </div>
-        </CompanysProvider>
-      </UserProvider>
-      {/* // ) : (
-      //   window.location.replace("/user/login")
-      // )} */}
+          </CompanysProvider>
+        </UserProvider>
+      ) : (
+        <div>
+          <h1>404 - Not Found!</h1>
+          <Link to="//user/login">Go Home</Link>
+        </div>
+      )}
     </>
   );
 };
