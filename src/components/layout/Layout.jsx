@@ -44,33 +44,31 @@ const Layout = () => {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<PagesAdmin Element={Dashboard} themeReducer={themeReducer} />} />
-        <Route exact path="/companys" element={<PagesAdmin Element={Companys} themeReducer={themeReducer} />} />
-        <Route exact path="/companys/edit/:id" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
-        <Route exact path="/companys/newCompany" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
-        <Route exact path="/forms" element={<PagesAdmin Element={Forms} themeReducer={themeReducer} />} />
-        <Route exact path="/forms/:id" element={<PagesAdmin Element={SelectForm} themeReducer={themeReducer} />} />
+    <Routes>
+      <Route exact path="/" element={<PagesAdmin Element={Dashboard} themeReducer={themeReducer} />} />
+      <Route exact path="/companys" element={<PagesAdmin Element={Companys} themeReducer={themeReducer} />} />
+      <Route exact path="/companys/edit/:id" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
+      <Route exact path="/companys/newCompany" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
+      <Route exact path="/forms" element={<PagesAdmin Element={Forms} themeReducer={themeReducer} />} />
+      <Route exact path="/forms/:id" element={<PagesAdmin Element={SelectForm} themeReducer={themeReducer} />} />
 
-        <Route exact path="/admins" element={<PagesAdmin Element={Admins} themeReducer={themeReducer} />} />
+      <Route exact path="/admins" element={<PagesAdmin Element={Admins} themeReducer={themeReducer} />} />
 
-        <Route exact path="/edit-admin/:id" element={<PagesAdmin Element={EditOrAddAdmin} themeReducer={themeReducer} />} />
-        <Route exact path="/add-new-user" element={<PagesAdmin Element={EditOrAddAdmin} themeReducer={themeReducer} />} />
-        <Route exact path="/settings" element={<PagesAdmin Element={Settings} themeReducer={themeReducer} />} />
-        <Route
-          exact
-          path="/user/login"
-          element={
-            <AuthProvider>
-              <LoginForm />
-            </AuthProvider>
-          }
-        />
-        <Route exact path="/form101/:id" element={<Form101 />} />
-        <Route exact path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+      <Route exact path="/edit-admin/:id" element={<PagesAdmin Element={EditOrAddAdmin} themeReducer={themeReducer} />} />
+      <Route exact path="/add-new-user" element={<PagesAdmin Element={EditOrAddAdmin} themeReducer={themeReducer} />} />
+      <Route exact path="/settings" element={<PagesAdmin Element={Settings} themeReducer={themeReducer} />} />
+      <Route
+        exact
+        path="/user/login"
+        element={
+          <AuthProvider>
+            <LoginForm />
+          </AuthProvider>
+        }
+      />
+      <Route exact path="/form101/:id" element={<Form101 />} />
+      <Route exact path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
