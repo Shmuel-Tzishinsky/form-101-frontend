@@ -139,9 +139,9 @@ const Layout = () => {
               </ProtectedRoute>
             }
           />
-          <Route exact path="/user/login" element={<LoginForm />} />
-          <Route exact path="/form101/:id" element={<Form101 />} />
-          <Route exact path="*" element={<NotFound />} />
+          <Route path="/user/login" element={<LoginForm />} />
+          <Route path="/form101/:id" element={<Form101 />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
