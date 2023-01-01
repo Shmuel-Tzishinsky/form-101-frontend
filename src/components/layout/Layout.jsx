@@ -47,6 +47,8 @@ const Layout = () => {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/user/login" element={<LoginForm />} />
+          <Route path="/form101/:id" element={<Form101 />} />
           <Route
             exact
             path="/"
@@ -139,8 +141,6 @@ const Layout = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/user/login" element={<LoginForm />} />
-          <Route path="/form101/:id" element={<Form101 />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
