@@ -1,7 +1,7 @@
-import decode from 'jwt-decode';
+import decode from "jwt-decode";
 
 const checkAdminAuth = () => {
-  const token = localStorage.getItem('mern_admin_dashboard');
+  const token = localStorage.getItem("admin_dashboard");
   if (!token) return false;
 
   try {

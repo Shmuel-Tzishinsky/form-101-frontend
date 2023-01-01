@@ -1,16 +1,16 @@
-import './topnav.css';
+import "./topnav.css";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import Dropdown from '../dropdown/Dropdown';
+import Dropdown from "../dropdown/Dropdown";
 
-import ThemeMenu from '../thememenu/ThemeMenu';
+import ThemeMenu from "../thememenu/ThemeMenu";
 
-import user_menu from '../../assets/JsonData/user_menus.json';
+import user_menu from "../../assets/JsonData/user_menus.json";
 
-import Sight from '../sight/Sight';
-import { useContext } from 'react';
-import { UserContext } from '../../context/userState/userContext';
+import Sight from "../sight/Sight";
+import { useContext } from "react";
+import { UserContext } from "../../context/userState/userContext";
 
 const renderUserToggle = (userName, colorLogo) => (
   <div className="topnav__right-user">
@@ -18,26 +18,22 @@ const renderUserToggle = (userName, colorLogo) => (
       <div
         className="logo-user"
         style={{
-          backgroundColor: colorLogo
+          backgroundColor: colorLogo,
         }}
         title={userName}
       >
-        {userName.split(' ')[0][0]}
+        {userName.split(" ")[0][0]}
       </div>
     </div>
-    <div className="name"> {userName.split(' ')[0]}</div>
+    <div className="name"> {userName.split(" ")[0]}</div>
   </div>
 );
 
 const renderUserMenu = (item, index) => (
   <Link
-    to={item.content === 'התנתק' ? '/user/login' : '/'}
+    to={item.content === "התנתק" ? "/user/login" : "/"}
     key={index}
-    onClick={() =>
-      item.content === 'התנתק'
-        ? localStorage.removeItem('mern_admin_dashboard')
-        : ''
-    }
+    onClick={() => (item.content === "התנתק" ? localStorage.removeItem("admin_dashboard") : "")}
   >
     <div className="notification-item">
       <span>{item.content}</span>
@@ -56,14 +52,7 @@ const Topnav = ({ colorLogo }) => {
         {/* dropdown here */}
         <div className="topnav__right-item">
           <Dropdown
-            customToggle={() =>
-              renderUserToggle(
-                userName === ''
-                  ? userName
-                  : localStorage.getItem('mern_admin_name'),
-                colorLogo
-              )
-            }
+            customToggle={() => renderUserToggle(userName === "" ? userName : localStorage.getItem("admin_name"), colorLogo)}
             contentData={user_menu}
             renderItems={(item, index) => renderUserMenu(item, index)}
           />

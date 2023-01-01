@@ -1,14 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
-// export const baseURL = 'http://localhost:5000/';
-export const baseURL = 'https://forms-101-backend.onrender.com/';
+export const baseURL = "https://forms-101-backend.onrender.com/";
 
 export const axiosInstance = axios.create({
-  baseURL
+  baseURL,
 });
 
 axiosInstance.interceptors.request.use(function (config) {
-  const token = localStorage.getItem('mern_admin_dashboard');
+  const token = localStorage.getItem("admin_dashboard");
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

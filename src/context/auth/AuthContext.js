@@ -1,16 +1,16 @@
-import React, { createContext, useReducer, useCallback } from 'react';
-import userReducer from './AuthReducer';
-import { axiosInstance } from '../../components/config';
-import * as types from './authActionTypes';
-import checkAdminAuth from '../../components/AdminAuth';
+import React, { createContext, useReducer, useCallback } from "react";
+import userReducer from "./AuthReducer";
+import { axiosInstance } from "../../components/config";
+import * as types from "./authActionTypes";
+import checkAdminAuth from "../../components/AdminAuth";
 
 const initialAuthState = {
   loading: false,
   error: false,
   token: null,
   errResponse: null,
-  userName: '',
-  id: ''
+  userName: "",
+  id: "",
 };
 
 export const AuthContext = createContext(initialAuthState);
@@ -20,33 +20,32 @@ export const AuthProvider = ({ children }) => {
 
   const AuthReset = () => {
     dispatch({
-      type: types.AUTH_RESET
+      type: types.AUTH_RESET,
     });
   };
 
   const LoginAction = useCallback(async (data, nav) => {
     AuthReset();
     dispatch({
-      type: types.AUTH_START
+      type: types.AUTH_START,
     });
 
     try {
-      const res = await axiosInstance.post('/api/auth/login', data);
+      const res = await axiosInstance.post("/api/auth/login", data);
 
-      localStorage.setItem('mern_admin_dashboard', res.data.access_token);
-      localStorage.setItem('mern_admin_name', res.data.name);
+      localStorage.setItem("admin_dashboard", res.data.access_token);
+      localStorage.setItem("admin_name", res.data.name);
 
       dispatch({
         type: types.AUTH_SUCCESS,
-        payload: res.data
+        payload: res.data,
       });
 
       if (checkAdminAuth(initialAuthState.token)) nav();
     } catch (error) {
       dispatch({
         type: types.AUTH_FAILURE,
-        payload:
-          error.response?.data?.error_msg || error.message || 'התרחשה שגיאה'
+        payload: error.response?.data?.error_msg || error.message || "התרחשה שגיאה",
       });
     }
   }, []);
@@ -56,7 +55,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         state,
         AuthReset,
-        LoginAction
+        LoginAction,
       }}
     >
       {children}

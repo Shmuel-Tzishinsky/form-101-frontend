@@ -4,7 +4,7 @@ import "./layout.css";
 
 import TopNav from "../topnav/TopNav";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -44,72 +44,139 @@ const Layout = () => {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<PagesAdmin Element={Dashboard} themeReducer={themeReducer} />} />
-        <Route exact path="/companys" element={<PagesAdmin Element={Companys} themeReducer={themeReducer} />} />
-        <Route exact path="/companys/edit/:id" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
-        <Route exact path="/companys/newCompany" element={<PagesAdmin Element={NewCompany} themeReducer={themeReducer} />} />
-        <Route exact path="/forms" element={<PagesAdmin Element={Forms} themeReducer={themeReducer} />} />
-        <Route exact path="/forms/:id" element={<PagesAdmin Element={SelectForm} themeReducer={themeReducer} />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/companys"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <Companys />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/companys/edit/:id"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <NewCompany />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/companys/newCompany"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <NewCompany />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/forms"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <Forms />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/forms/:id"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <SelectForm />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route exact path="/admins" element={<PagesAdmin Element={Admins} themeReducer={themeReducer} />} />
+          <Route
+            exact
+            path="/admins"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <Admins />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route exact path="/edit-admin/:id" element={<PagesAdmin Element={EditOrAddAdmin} themeReducer={themeReducer} />} />
-        <Route exact path="/add-new-user" element={<PagesAdmin Element={EditOrAddAdmin} themeReducer={themeReducer} />} />
-        <Route exact path="/settings" element={<PagesAdmin Element={Settings} themeReducer={themeReducer} />} />
-        <Route
-          exact
-          path="/user/login"
-          element={
-            <AuthProvider>
-              <LoginForm />
-            </AuthProvider>
-          }
-        />
-        <Route exact path="/form101/:id" element={<Form101 />} />
-        <Route exact path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+          <Route
+            exact
+            path="/edit-admin/:id"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <EditOrAddAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/add-new-user"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <EditOrAddAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/settings"
+            element={
+              <ProtectedRoute themeReducer={themeReducer}>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
+          <Route exact path="/user/login" element={<LoginForm />} />
+          <Route exact path="/form101/:id" element={<Form101 />} />
+          <Route exact path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 
-const PagesAdmin = ({ Element, themeReducer }) => {
+const ProtectedRoute = ({ children, themeReducer }) => {
   const [colorLogo, setColorLogo] = useState("");
 
   useEffect(() => {
-    function randumColor() {
+    function randomColor() {
       let hue = Math.floor(Math.random() * 359);
       let hsl = `hsl(${hue}deg 100% 82%)`;
 
       return hsl;
     }
 
-    setColorLogo(randumColor());
+    setColorLogo(randomColor());
   }, [Element, setColorLogo]);
 
+  if (!checkAdminAuth()) {
+    return <Navigate to="/user/login" />;
+  }
+
   return (
-    <>
-      {checkAdminAuth() ? (
-        <UserProvider>
-          <CompanysProvider>
-            <div className={`layout ${themeReducer.mode} ${themeReducer.color}`}>
-              <div className="layout__content">
-                <TopNav colorLogo={colorLogo} />
-                <div className="layout__content-main">
-                  <Element />
-                </div>
-              </div>
-            </div>
-          </CompanysProvider>
-        </UserProvider>
-      ) : (
-        <div>
-          <h1>404 - Not Found!</h1>
-          <Link to="//user/login">Go Home</Link>
+    <UserProvider>
+      <CompanysProvider>
+        <div className={`layout ${themeReducer.mode} ${themeReducer.color}`}>
+          <div className="layout__content">
+            <TopNav colorLogo={colorLogo} />
+            <div className="layout__content-main">{children}</div>
+          </div>
         </div>
-      )}
-    </>
+      </CompanysProvider>
+    </UserProvider>
   );
 };
 
